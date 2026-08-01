@@ -3,7 +3,10 @@ server-error.log
 .DS_Store
 Thumbs.db
 .env
-LOCAL-WORDPRESS-ACCESS.txt
+*-WORDPRESS-ACCESS.txt
+.env.server
+.deploy-deps/
+baikal-server-deploy.tar.gz
 wordpress/wp-content/plugins/advanced-custom-fields-pro/
 wordpress/wp-content/uploads/
 wordpress/wp-content/cache/
