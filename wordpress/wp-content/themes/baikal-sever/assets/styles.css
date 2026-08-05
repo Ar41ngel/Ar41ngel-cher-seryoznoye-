@@ -86,10 +86,10 @@ h2 { font-size: clamp(42px, 5vw, 73px); line-height: 1.08; letter-spacing: -.04e
 .tour-image::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,25,25,.4), transparent 55%); transition: .4s; }
 .tour-card:hover .tour-image::after { background: rgba(0,25,25,.12); }
 .tour-image span { position: absolute; z-index: 2; left: 20px; top: 20px; padding: 8px 11px; background: rgba(251,250,246,.92); text-transform: uppercase; letter-spacing: .12em; font-size: 8px; font-weight: 700; }
-.tour-one { background-image: url("https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=85"); }
-.tour-two { background-image: url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd4297?auto=format&fit=crop&w=1200&q=85"); }
-.tour-three { background-image: url("https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=1200&q=85"); }
-.tour-four { background-image: url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85"); }
+.tour-one { background-image: url("images/olkhon-hero-v2.png"); }
+.tour-two { background-image: url("images/bay-hero-v2.png"); }
+.tour-three { background-image: url("images/ice-hero-v2.png"); }
+.tour-four { background-image: url("images/arshan-hero-v2.png"); }
 .tour-info { display: grid; grid-template-columns: 1fr auto auto; gap: 20px; align-items: end; padding: 24px 0; border-bottom: 1px solid var(--line); }
 .tour-info p { font-size: 9px; color: #71827f; text-transform: uppercase; letter-spacing: .08em; margin: 0 0 9px; }
 .tour-info h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; margin: 0; }
@@ -174,7 +174,7 @@ blockquote { font-size: clamp(34px, 4.3vw, 63px); line-height: 1.2; margin: 0 au
 .exp-hero-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(4,28,26,.86), rgba(4,28,26,.24) 66%), linear-gradient(0deg, rgba(4,28,26,.7), transparent 54%); }
 .exp-hero-content { position: relative; z-index: 2; width: min(780px, 82vw); margin: 0 0 180px 8vw; }
 .exp-back { display: inline-block; margin-bottom: 55px; font-size: 9px; text-transform: uppercase; letter-spacing: .15em; color: rgba(255,255,255,.7); }
-.exp-hero h1 { font-size: clamp(50px, 6.5vw, 104px); max-width: 1000px; }
+.exp-hero h1 { font-size: clamp(46px, 5.3vw, 82px); line-height: 1.02; max-width: 920px; }
 .exp-hero-content > p:not(.eyebrow) { max-width: 620px; margin: 30px 0; font-size: 15px; line-height: 1.8; color: rgba(255,255,255,.75); }
 .exp-summary { position: absolute; z-index: 3; inset: auto 0 0; min-height: 112px; padding: 28px 8vw; background: rgba(9,39,36,.9); backdrop-filter: blur(15px); display: grid; grid-template-columns: repeat(4,1fr); }
 .exp-summary div { padding-left: 25px; border-left: 1px solid rgba(255,255,255,.17); }
@@ -208,6 +208,8 @@ blockquote { font-size: clamp(34px, 4.3vw, 63px); line-height: 1.2; margin: 0 au
 .exp-booking { background:var(--deep); color:white; display:grid; grid-template-columns:1fr 1fr; gap:9vw; align-items:start; }
 .exp-booking h2 em { font-size:.68em; }
 .exp-booking > div > p:last-child { max-width:480px; color:rgba(255,255,255,.6); line-height:1.8; }
+.admin-bar .header { top: 32px; }
+@media(max-width:782px){.admin-bar .header{top:46px}}
 @media(max-width:980px){.exp-hero{min-height:760px}.exp-summary{grid-template-columns:1fr 1fr;gap:22px}.route-line{grid-template-columns:1fr 1fr;gap:35px}.route-line::before{display:none}.exp-details,.exp-booking{grid-template-columns:1fr}.people-gallery{grid-template-columns:1fr 1fr}.people-gallery figure:last-child{grid-column:1/3}}
 @media(max-width:640px){.exp-hero{min-height:820px}.exp-hero-content{margin:0 22px 230px;width:auto}.exp-back{margin-bottom:35px}.exp-summary{padding:24px 22px}.exp-summary div{padding-left:12px}.route-line{grid-template-columns:1fr}.route-stop{display:grid;grid-template-columns:48px 1fr;column-gap:16px}.route-stop time,.route-stop h3,.route-stop p{grid-column:2}.route-stop time{margin-top:-38px}.exp-facts{grid-template-columns:1fr}.people-gallery{display:flex;overflow-x:auto}.people-gallery figure{flex:0 0 82vw;height:380px}.exp-booking{gap:50px}}
 

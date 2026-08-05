@@ -179,7 +179,7 @@ add_action(
 			)
 		);
 
-		if ( get_option( 'baikal_expeditions_seeded_v1' ) ) {
+		if ( get_option( 'baikal_expeditions_seeded_v2' ) ) {
 			return;
 		}
 
@@ -190,32 +190,56 @@ add_action(
 			array( 'url' => 'https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&w=1200&q=86', 'caption' => 'Моменты, которые остаются' ),
 		);
 
+		$assets = get_template_directory_uri() . '/assets/images';
+		$galleries = array(
+			'olkhon' => array(
+				array( 'url' => $assets . '/olkhon-1.jpg', 'caption' => 'Степные дороги острова' ),
+				array( 'url' => $assets . '/olkhon-2.jpg', 'caption' => 'Берег Малого моря' ),
+				array( 'url' => $assets . '/olkhon-3.jpg', 'caption' => 'Закат на Ольхоне' ),
+			),
+			'peschanaya-bay' => array(
+				array( 'url' => $assets . '/bay-1.jpg', 'caption' => 'Путешествие по воде' ),
+				array( 'url' => $assets . '/bay-2.jpg', 'caption' => 'Берег бухты Песчаной' ),
+				array( 'url' => $assets . '/bay-3.jpg', 'caption' => 'Остановка у скал' ),
+			),
+			'baikal-ice' => array(
+				array( 'url' => $assets . '/ice-1.jpg', 'caption' => 'Прозрачный лёд Байкала' ),
+				array( 'url' => $assets . '/ice-2.jpg', 'caption' => 'Зимняя экспедиция' ),
+				array( 'url' => $assets . '/ice-3.jpg', 'caption' => 'Ледовые гроты' ),
+			),
+			'arshan-sayan' => array(
+				array( 'url' => $assets . '/arshan-1.jpg', 'caption' => 'Тропа в Восточных Саянах' ),
+				array( 'url' => $assets . '/arshan-2.jpg', 'caption' => 'Горная долина Аршана' ),
+				array( 'url' => $assets . '/arshan-3.jpg', 'caption' => 'Путь к водопаду' ),
+			),
+		);
+
 		$expeditions = array(
 			'olkhon' => array(
 				'title' => 'Ольхон — сердце Байкала', 'eyebrow' => '1 день · из Иркутска', 'price' => '8 900 ₽', 'duration' => '14 часов', 'departure' => 'Иркутск', 'season' => 'май — октябрь', 'group_size' => 'до 15 гостей', 'difficulty' => 'лёгкая',
 				'subtitle' => 'Большое путешествие к сакральному центру Байкала: степи, скалы, шаманские легенды и закат над Малым морем.',
-				'hero_url' => 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2200&q=90',
+				'hero_url' => $assets . '/olkhon-hero-v2.png',
 				'route_intro' => 'За один день проедем от Иркутска через Тажеранские степи к острову Ольхон и соберём главные виды Малого моря.',
 				'stops' => array( array( 'time'=>'07:00','title'=>'Иркутск','text'=>'Встреча с гидом и выезд.' ), array( 'time'=>'10:30','title'=>'Тажеранские степи','text'=>'Панорамная остановка и знакомство с местной культурой.' ), array( 'time'=>'12:30','title'=>'Хужир','text'=>'Обед из сибирских продуктов.' ), array( 'time'=>'14:00','title'=>'Скала Шаманка','text'=>'Прогулка к главному символу Ольхона.' ), array( 'time'=>'17:00','title'=>'Сарайский пляж','text'=>'Свободное время у воды и фотографии.' ) ),
 			),
 			'peschanaya-bay' => array(
 				'title' => 'Бухта Песчаная на катере', 'eyebrow' => '10 часов · из Листвянки', 'price' => '9 500 ₽', 'duration' => '10 часов', 'departure' => 'Листвянка', 'season' => 'июнь — сентябрь', 'group_size' => 'до 11 гостей', 'difficulty' => 'лёгкая',
 				'subtitle' => 'День на воде среди прозрачных бухт, скалистых мысов и знаменитых ходульных деревьев.',
-				'hero_url' => 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd4297?auto=format&fit=crop&w=2200&q=90',
+				'hero_url' => $assets . '/bay-hero-v2.png',
 				'route_intro' => 'Пройдём вдоль западного берега Байкала на скоростном катере и высадимся в одной из самых красивых бухт озера.',
 				'stops' => array( array( 'time'=>'09:00','title'=>'Листвянка','text'=>'Инструктаж и выход на воду.' ), array( 'time'=>'10:20','title'=>'Скрипер','text'=>'Осмотр отвесных скал с воды.' ), array( 'time'=>'12:00','title'=>'Бухта Песчаная','text'=>'Высадка, прогулка и обед-пикник.' ), array( 'time'=>'14:30','title'=>'Бухта Бабушка','text'=>'Короткий треккинг и купание по погоде.' ), array( 'time'=>'18:30','title'=>'Листвянка','text'=>'Возвращение в порт.' ) ),
 			),
 			'baikal-ice' => array(
 				'title' => 'Лёд Байкала на хивусе', 'eyebrow' => '7 часов · из Листвянки', 'price' => '7 900 ₽', 'duration' => '7 часов', 'departure' => 'Листвянка', 'season' => 'февраль — март', 'group_size' => 'до 9 гостей', 'difficulty' => 'лёгкая',
 				'subtitle' => 'Путешествие по самому прозрачному льду: пузырьки, трещины, гроты и зимний пикник.',
-				'hero_url' => 'https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=2200&q=90',
+				'hero_url' => $assets . '/ice-hero-v2.png',
 				'route_intro' => 'На судне на воздушной подушке доберёмся до труднодоступных ледовых локаций и безопасно исследуем зимний Байкал.',
 				'stops' => array( array( 'time'=>'10:00','title'=>'Листвянка','text'=>'Экипировка и выход на лёд.' ), array( 'time'=>'10:40','title'=>'Пузырьковый лёд','text'=>'Первая фотостоп-локация.' ), array( 'time'=>'12:00','title'=>'Ледовые гроты','text'=>'Прогулка вдоль наплесков и сосулек.' ), array( 'time'=>'14:00','title'=>'Пикник на льду','text'=>'Горячий обед и чай из сибирских трав.' ), array( 'time'=>'16:30','title'=>'Листвянка','text'=>'Возвращение на берег.' ) ),
 			),
 			'arshan-sayan' => array(
 				'title' => 'Аршан и Восточные Саяны', 'eyebrow' => '1 день · из Иркутска', 'price' => '6 800 ₽', 'duration' => '13 часов', 'departure' => 'Иркутск', 'season' => 'круглый год', 'group_size' => 'до 15 гостей', 'difficulty' => 'средняя',
 				'subtitle' => 'Горная долина у подножия Саян: водопады, минеральные источники и бурятская кухня.',
-				'hero_url' => 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90',
+				'hero_url' => $assets . '/arshan-hero-v2.png',
 				'route_intro' => 'Пересечём Тункинскую долину, пройдём по горной тропе и познакомимся с природой и вкусами Бурятии.',
 				'stops' => array( array( 'time'=>'07:00','title'=>'Иркутск','text'=>'Выезд по Култукскому тракту.' ), array( 'time'=>'09:30','title'=>'Култук','text'=>'Видовая остановка на южный Байкал.' ), array( 'time'=>'11:30','title'=>'Аршан','text'=>'Прогулка по горному посёлку.' ), array( 'time'=>'13:00','title'=>'Водопад','text'=>'Треккинг по живописной тропе.' ), array( 'time'=>'16:00','title'=>'Минеральный источник','text'=>'Дегустация воды и местный рынок.' ) ),
 			),
@@ -231,10 +255,10 @@ add_action(
 					}
 				}
 				update_field( 'included', array( array( 'item'=>'Транспорт по маршруту' ), array( 'item'=>'Сопровождение местного гида' ), array( 'item'=>'Питание по программе' ), array( 'item'=>'Входные билеты и сборы' ), array( 'item'=>'Страховка путешественника' ) ), $post_id );
-				update_field( 'gallery_urls', $shared_gallery, $post_id );
+				update_field( 'gallery_urls', $galleries[ $slug ], $post_id );
 			}
 		}
-		update_option( 'baikal_expeditions_seeded_v1', 1 );
+		update_option( 'baikal_expeditions_seeded_v2', 1 );
 		flush_rewrite_rules( false );
 	},
 	20

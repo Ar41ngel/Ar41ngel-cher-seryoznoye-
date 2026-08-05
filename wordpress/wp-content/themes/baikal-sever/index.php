@@ -45,7 +45,7 @@ $html = str_replace(
 		'Иркутская область, Листвянка<br>ул. Горького, 33',
 	),
 	array(
-		'href="' . esc_url( get_stylesheet_uri() ) . '"',
+		'href="' . esc_url( get_template_directory_uri() . '/assets/styles.css?ver=' . filemtime( get_template_directory() . '/assets/styles.css' ) ) . '"',
 		'src="' . esc_url( get_template_directory_uri() . '/assets/script.js' ) . '"',
 		esc_html( $brand ) . '<small>' . esc_html( $brand_suffix ) . '</small>',
 		'<h1>' . $hero_title . '</h1>',
