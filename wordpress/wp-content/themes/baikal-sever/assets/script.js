@@ -14,7 +14,7 @@ menuButton?.addEventListener('click', () => {
 
 nav?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
   nav.classList.remove('open');
-  menuButton.setAttribute('aria-expanded', 'false');
+  menuButton?.setAttribute('aria-expanded', 'false');
 }));
 
 document.getElementById('nextTour')?.addEventListener('click', () => {
@@ -63,21 +63,33 @@ document.querySelectorAll('.chips button').forEach(button => {
   button.addEventListener('click', () => button.classList.toggle('active'));
 });
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: .12 });
-
 document.querySelectorAll('.exp-hero-content, .exp-summary, .exp-section-title, .route-stop, .exp-details > div, .included-list, .exp-facts, .people-gallery figure, .exp-booking > div, .exp-booking .form')
   .forEach(el => el.classList.add('reveal'));
 
-document.querySelectorAll('.reveal').forEach((el, index) => {
+const revealElements = document.querySelectorAll('.reveal');
+const revealAll = () => revealElements.forEach(el => el.classList.add('visible'));
+
+if ('IntersectionObserver' in window) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: .08, rootMargin: '0px 0px 80px' });
+
+  revealElements.forEach((el, index) => {
+    el.style.setProperty('--reveal-delay', `${Math.min(index % 5, 4) * 70}ms`);
+    observer.observe(el);
+  });
+  window.setTimeout(revealAll, 2500);
+} else {
+  revealAll();
+}
+
+revealElements.forEach((el, index) => {
   el.style.setProperty('--reveal-delay', `${Math.min(index % 5, 4) * 70}ms`);
-  observer.observe(el);
 });
 
 const expeditionHero = document.querySelector('.exp-hero');
@@ -87,11 +99,35 @@ if (expeditionHero && !window.matchMedia('(prefers-reduced-motion: reduce)').mat
   updateHero();
 }
 
-document.getElementById('requestForm')?.addEventListener('submit', event => {
+document.querySelectorAll('input[type="date"]').forEach(input => {
+  const localToday = new Date();
+  localToday.setMinutes(localToday.getMinutes() - localToday.getTimezoneOffset());
+  input.min = localToday.toISOString().slice(0, 10);
+});
+
+document.getElementById('requestForm')?.addEventListener('submit', async event => {
   event.preventDefault();
+  const form = event.currentTarget;
   const toast = document.getElementById('toast');
+  const submit = form.querySelector('[type="submit"]');
+  const data = new FormData(form);
+  const selectedRoutes = [...document.querySelectorAll('.chips button.active')].map(button => button.textContent.trim());
+  if (selectedRoutes.length) data.set('routes', selectedRoutes.join(', '));
+  submit.disabled = true;
+  toast.textContent = 'Отправляем заявку…';
   toast.classList.add('show');
-  event.target.reset();
-  document.querySelectorAll('.chips button').forEach(button => button.classList.remove('active'));
+
+  try {
+    const response = await fetch(form.action, { method: 'POST', body: data, credentials: 'same-origin' });
+    const result = await response.json();
+    if (!response.ok || !result.success) throw new Error(result?.data?.message || 'Ошибка отправки заявки.');
+    toast.textContent = result.data.message;
+    form.reset();
+    document.querySelectorAll('.chips button').forEach(button => button.classList.remove('active'));
+  } catch (error) {
+    toast.textContent = error.message || 'Не удалось отправить заявку. Позвоните нам напрямую.';
+  } finally {
+    submit.disabled = false;
+  }
   setTimeout(() => toast.classList.remove('show'), 4000);
 });

@@ -58,6 +58,12 @@ $html = str_replace(
 	$html
 );
 
+$html = str_replace(
+	'<form class="form reveal" id="requestForm">',
+	'<form class="form reveal" id="requestForm" action="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '" method="post"><input type="hidden" name="action" value="baikal_submit_request"><input type="hidden" name="nonce" value="' . esc_attr( wp_create_nonce( 'baikal_request' ) ) . '"><input type="hidden" name="source" value="Главная страница"><input class="form-honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">',
+	$html
+);
+
 ob_start();
 wp_head();
 $wp_head = ob_get_clean();

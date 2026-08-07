@@ -13,6 +13,82 @@ add_action(
 );
 
 add_action(
+	'init',
+	static function () {
+		register_post_type(
+			'baikal_request',
+			array(
+				'labels' => array(
+					'name'          => 'Заявки',
+					'singular_name' => 'Заявка',
+					'menu_name'     => 'Заявки с сайта',
+				),
+				'public'       => false,
+				'show_ui'      => true,
+				'show_in_menu' => true,
+				'menu_icon'    => 'dashicons-phone',
+				'supports'     => array( 'title', 'editor' ),
+			)
+		);
+	}
+);
+
+$baikal_submit_request = static function () {
+	check_ajax_referer( 'baikal_request', 'nonce' );
+
+	if ( ! empty( $_POST['website'] ) ) {
+		wp_send_json_success();
+	}
+
+	$phone      = sanitize_text_field( wp_unslash( $_POST['phone'] ?? '' ) );
+	$phone_digits = preg_replace( '/\D+/', '', $phone );
+	if ( strlen( $phone_digits ) < 10 ) {
+		wp_send_json_error( array( 'message' => 'Проверьте номер телефона.' ), 422 );
+	}
+
+	$ip_key = 'baikal_request_' . md5( sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? 'unknown' ) ) );
+	if ( get_transient( $ip_key ) ) {
+		wp_send_json_error( array( 'message' => 'Заявка уже отправлена. Попробуйте немного позже.' ), 429 );
+	}
+
+	$name   = sanitize_text_field( wp_unslash( $_POST['name'] ?? '' ) );
+	$date   = sanitize_text_field( wp_unslash( $_POST['date'] ?? '' ) );
+	$guests = absint( $_POST['guests'] ?? 0 );
+	$routes = sanitize_text_field( wp_unslash( $_POST['routes'] ?? '' ) );
+	$source = sanitize_text_field( wp_unslash( $_POST['source'] ?? 'Главная страница' ) );
+	$lines  = array_filter(
+		array(
+			'Имя: ' . ( $name ?: 'не указано' ),
+			'Телефон: ' . $phone,
+			'Дата: ' . ( $date ?: 'не указана' ),
+			'Гостей: ' . ( $guests ?: 'не указано' ),
+			'Маршруты: ' . ( $routes ?: 'не выбраны' ),
+			'Источник: ' . $source,
+		)
+	);
+
+	$request_id = wp_insert_post(
+		array(
+			'post_type'    => 'baikal_request',
+			'post_status'  => 'private',
+			'post_title'   => sprintf( 'Заявка %s — %s', current_time( 'd.m.Y H:i' ), $phone ),
+			'post_content' => implode( "\n", $lines ),
+		),
+		true
+	);
+
+	if ( is_wp_error( $request_id ) ) {
+		wp_send_json_error( array( 'message' => 'Не удалось сохранить заявку. Позвоните нам напрямую.' ), 500 );
+	}
+
+	set_transient( $ip_key, 1, 30 );
+	wp_send_json_success( array( 'message' => 'Спасибо! Заявка сохранена, мы скоро свяжемся с вами.' ) );
+};
+
+add_action( 'wp_ajax_baikal_submit_request', $baikal_submit_request );
+add_action( 'wp_ajax_nopriv_baikal_submit_request', $baikal_submit_request );
+
+add_action(
 	'acf/init',
 	static function () {
 		if ( ! function_exists( 'acf_add_options_page' ) ) {
