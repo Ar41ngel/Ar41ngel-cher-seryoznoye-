@@ -24,6 +24,41 @@ document.getElementById('prevTour')?.addEventListener('click', () => {
   track.scrollBy({ left: -track.clientWidth * .62, behavior: 'smooth' });
 });
 
+if (track) {
+  let gestureMoved = false;
+  let pointerStart = null;
+
+  track.addEventListener('pointerdown', event => {
+    pointerStart = { x: event.clientX, y: event.clientY };
+    gestureMoved = false;
+  }, { passive: true });
+
+  track.addEventListener('pointermove', event => {
+    if (!pointerStart) return;
+    gestureMoved = Math.abs(event.clientX - pointerStart.x) > 8 || Math.abs(event.clientY - pointerStart.y) > 8;
+  }, { passive: true });
+
+  track.addEventListener('pointercancel', () => { pointerStart = null; gestureMoved = false; });
+
+  track.querySelectorAll('.tour-card').forEach(card => {
+    const routeLink = card.querySelector('.tour-info > a');
+    if (!routeLink) return;
+    card.tabIndex = 0;
+    card.setAttribute('role', 'link');
+    card.setAttribute('aria-label', routeLink.getAttribute('aria-label') || 'Открыть маршрут');
+    card.addEventListener('click', event => {
+      if (gestureMoved || event.target.closest('a')) return;
+      window.location.href = routeLink.href;
+    });
+    card.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        window.location.href = routeLink.href;
+      }
+    });
+  });
+}
+
 document.querySelectorAll('.chips button').forEach(button => {
   button.addEventListener('click', () => button.classList.toggle('active'));
 });
