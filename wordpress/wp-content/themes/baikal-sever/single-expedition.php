@@ -62,7 +62,7 @@ $gallery = $value( 'gallery_urls', array() );
 
   <section class="exp-gallery section">
     <div class="exp-section-title"><p class="eyebrow">Истории гостей</p><h2>Байкал глазами<br><em>путешественников</em></h2></div>
-    <div class="people-gallery"><?php foreach ( $gallery as $image ) : ?><figure><img src="<?php echo esc_url( $image['url'] ); ?>" alt="<?php echo esc_attr( $image['caption'] ); ?>" loading="lazy"><figcaption><?php echo esc_html( $image['caption'] ); ?></figcaption></figure><?php endforeach; ?></div>
+    <div class="people-gallery"><?php foreach ( $gallery as $image ) : ?><figure><img src="<?php echo esc_url( $image['url'] ); ?>" alt="<?php echo esc_attr( $image['caption'] ); ?>" loading="eager" decoding="async"><figcaption><?php echo esc_html( $image['caption'] ); ?></figcaption></figure><?php endforeach; ?></div>
   </section>
 
   <section class="exp-booking section" id="booking">
