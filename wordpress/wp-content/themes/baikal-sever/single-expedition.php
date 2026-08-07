@@ -24,6 +24,7 @@ $gallery = $value( 'gallery_urls', array() );
   <a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><svg viewBox="0 0 54 54"><circle cx="27" cy="27" r="25"></circle><path d="M10 35c7-2 10-12 16-17 3 5 7 9 17 17M12 38c10-4 20-4 30 0"></path></svg><span>БАЙКАЛ<small>СЕВЕР</small></span></a>
   <nav class="nav"><a href="<?php echo esc_url( home_url( '/#tours' ) ); ?>">Экскурсии</a><a href="<?php echo esc_url( home_url( '/#about' ) ); ?>">О нас</a><a href="<?php echo esc_url( home_url( '/#transport' ) ); ?>">Транспорт</a><a href="<?php echo esc_url( home_url( '/#contacts' ) ); ?>">Контакты</a></nav>
   <div class="header-contact"><a href="tel:<?php echo esc_attr( $phone_href ); ?>"><?php echo esc_html( $phone ); ?></a><span>Ежедневно 09:00–20:00</span></div>
+  <button class="menu-button" id="menuButton" type="button" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span></button>
 </header>
 
 <main>
@@ -71,6 +72,6 @@ $gallery = $value( 'gallery_urls', array() );
 </main>
 <footer class="footer"><div class="footer-bottom"><span>© 2026 Байкал Север</span><a href="<?php echo esc_url( home_url( '/' ) ); ?>">На главную</a><a href="tel:<?php echo esc_attr( $phone_href ); ?>"><?php echo esc_html( $phone ); ?></a></div></footer>
 <div class="toast" id="toast">Спасибо! Мы свяжемся с вами в ближайшее время.</div>
-<script src="<?php echo esc_url( get_template_directory_uri() . '/assets/script.js' ); ?>"></script>
+<script src="<?php echo esc_url( get_template_directory_uri() . '/assets/script.js?ver=' . filemtime( get_template_directory() . '/assets/script.js' ) ); ?>"></script>
 <?php wp_footer(); ?>
 </body></html>
